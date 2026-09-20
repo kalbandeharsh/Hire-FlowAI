@@ -6,25 +6,6 @@ HireFlow is an auditable, evidence-driven interview copilot that maps candidate 
 
 ---
 
-## Quickstart (<= 5 Commands)
-
-```bash
-# 1. Clone or navigate to the project directory
-cd "/Users/harsh/Documents/Agentic AI"
-
-# 2. Install dependencies
-pip install streamlit reportlab pydantic
-
-# 3. Run the automated 10-point test harness (all 10 pass)
-python -m tests.run
-
-# 4. Launch the Streamlit application
-streamlit run app/app.py --server.port 8501
-
-# 5. Open in your browser
-open http://localhost:8501
-```
-
 *(Note: HireFlow includes pre-computed deterministic golden caches and a sidebar **Demo Mode** toggle, ensuring 100% full-flow offline execution with zero network dependency.)*
 
 ---
