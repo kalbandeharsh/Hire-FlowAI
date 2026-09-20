@@ -23,7 +23,15 @@ def get_cache_key(prompt: str, model: str = "gemini-2.5-flash", **kwargs) -> str
 class DiskCache:
     def __init__(self, cache_dir: str = CACHE_DIR):
         self.cache_dir = cache_dir
-        os.makedirs(self.cache_dir, exist_ok=True)
+        try:
+            os.makedirs(self.cache_dir, exist_ok=True)
+        except OSError:
+            # Fallback to /tmp on serverless read-only filesystems like Vercel
+            self.cache_dir = "/tmp/hireflow_cache"
+            try:
+                os.makedirs(self.cache_dir, exist_ok=True)
+            except Exception:
+                pass
 
     def get(self, key: str) -> Optional[Dict[str, Any]]:
         file_path = os.path.join(self.cache_dir, f"{key}.json")

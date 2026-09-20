@@ -29,9 +29,18 @@ DEMO_DIR = os.path.join(ROOT_DIR, "data", "demo")
 
 
 def load_pool() -> Dict[str, Any]:
-    if os.path.exists(DATA_PATH):
-        with open(DATA_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
+    candidate_paths = [
+        os.path.join(ROOT_DIR, "data", "sample_data.json"),
+        os.path.join(os.getcwd(), "data", "sample_data.json"),
+        "/var/task/data/sample_data.json"
+    ]
+    for p in candidate_paths:
+        if os.path.exists(p):
+            try:
+                with open(p, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception:
+                pass
     return {"role": {"id": "default", "title": "Senior Backend Engineer", "requirements": []}, "candidates": []}
 
 
